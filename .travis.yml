@@ -8,7 +8,7 @@ cache:
   directories:
     - node_modules
 script:
-  - git remote set-url origin https://$USER:$GITHUB_API_KEY@github.com/eigen-space/base-http-service.git
+  - git remote set-url origin https://$USER:$GITHUB_API_KEY@github.com/eigen-space/url-replacer.git
   # We use additional dashes here `--` because
   # It is needed to separate the params passed to npm command itself and params passed to your script
   - yarn lint && yarn test:ci && yarn build && npm run deploy:publish -- --branch=$TRAVIS_BRANCH;
