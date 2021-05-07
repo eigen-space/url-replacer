@@ -85,5 +85,27 @@ describe('UrlReplacer', () => {
             const expected = '/export';
             expect(url).toEqual(expected);
         });
+
+        it('should create multiple query params for collection', () => {
+            const rawUrl = '/export?kind=:kind';
+            const params = {
+                kind: ['prod', 'dev']
+            };
+
+            const url = replacer.process(rawUrl, params);
+
+            const expected = '/export?kind=prod&kind=dev';
+            expect(url).toEqual(expected);
+        });
+
+        it('should replace path param', () => {
+            const rawUrl = '/:kind';
+            const params = { kind: 'dev' };
+
+            const url = replacer.process(rawUrl, params);
+
+            const expected = '/dev';
+            expect(url).toEqual(expected);
+        });
     });
 });
