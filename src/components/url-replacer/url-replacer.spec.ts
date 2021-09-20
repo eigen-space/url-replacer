@@ -110,6 +110,15 @@ describe('UrlReplacer', () => {
             expect(url).toEqual(expected);
         });
 
+        it('should clean empty array param key', () => {
+            const rawUrl = '/export?kind[]=:kind&type[]=:type';
+
+            const url = replacer.process(rawUrl, {});
+
+            const expected = '/export';
+            expect(url).toEqual(expected);
+        });
+
         it('should replace path param', () => {
             const rawUrl = '/:kind';
             const params = { kind: 'dev' };
