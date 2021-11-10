@@ -7,12 +7,10 @@ type Matcher = (match: string, ...args: any[]) => string;
 export class UrlReplacer {
 
     process(url: string, params: AnyDictionary = {}): string {
-        const sanitized = url.replace(/([^?&=]+)=:([a-zA-Z]+)/g, this.processNamedStatement(params))
+        return url.replace(/([^?&=]+)=:([a-zA-Z]+)/g, this.processNamedStatement(params))
             .replace(/([^=]):([a-zA-Z]+)/g, this.processUnnamedStatement(params))
             .replace(/[a-zA-Z_-]*(\[])?=&/g, '')
             .replace(/[?&]?[a-zA-Z_-]*(\[])?=$/g, '');
-
-        return decodeURIComponent(sanitized);
     }
 
     private processNamedStatement(urlParams: AnyDictionary): Matcher {

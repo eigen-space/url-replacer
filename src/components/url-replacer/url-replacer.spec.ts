@@ -5,16 +5,6 @@ describe('UrlReplacer', () => {
 
     describe('#process', () => {
 
-        it('shouldn\'t remove `=&` symbol if value contains `=` in the end', () => {
-            const rawUrl = 'https://ya.ru/search?jql=:jql&fields=:fields&expand=:expand';
-            const params = { jql: 'cf[11906]=', fields: 'customfield_12402,customfield_12249' };
-
-            const url = replacer.process(rawUrl, params);
-
-            const expectedUrl = 'https://ya.ru/search?jql=cf[11906]=&fields=customfield_12402,customfield_12249';
-            expect(url).toEqual(expectedUrl);
-        });
-
         it('should remove empty params', () => {
             const rawUrl = '/export?status=:status&page=:pageNumber';
             const params = { status: 'exported' };
@@ -126,6 +116,16 @@ describe('UrlReplacer', () => {
             const url = replacer.process(rawUrl, params);
 
             const expected = '/dev';
+            expect(url).toEqual(expected);
+        });
+
+        it('should encode the characters restricted by RFC 7230 and RFC 3986', () => {
+            const rawUrl = '/:kind';
+            const params = { kind: 'dev[]`' };
+
+            const url = replacer.process(rawUrl, params);
+
+            const expected = '/dev%5B%5D%60';
             expect(url).toEqual(expected);
         });
     });
