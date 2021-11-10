@@ -1,6 +1,6 @@
 {
     "name": "@eigenspace/url-replacer",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "The tool to transform template url to specific one",
     "main": "index.js",
     "author": "Nikita Agupov <nktrsk@gmail.com>",
